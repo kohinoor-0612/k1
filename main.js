@@ -18,6 +18,7 @@ const  maxium_opupgrader = 5;
 const  maxium_hauler = 2
 
 //git yest
+// this si to test the branch 
 
 //____________________________________只執行一次
 //賦予礦點記憶屬性
