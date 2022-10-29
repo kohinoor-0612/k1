@@ -17,6 +17,8 @@ const  maxium_upgrader = 1;
 const  maxium_opupgrader = 5;
 const  maxium_hauler = 2
 
+//git yest
+
 //____________________________________只執行一次
 //賦予礦點記憶屬性
 Object.defineProperty(Source.prototype, 'memory', {
