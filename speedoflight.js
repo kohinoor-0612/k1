@@ -1,0 +1,1 @@
+export const lspeed = '299792458 m/s';
