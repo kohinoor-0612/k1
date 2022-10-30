@@ -13,19 +13,18 @@ var spawnhighlv = {
               };
             //生成身體結構 3個零件數量都相等
             var numberOfParts = Math.floor((cost-200) / 150);
+            if(numberOfParts > 6){ numberOfParts = 6}
             var body = [];
             for (let i = 0; i < numberOfParts; i++) {
-                  //reach mining limit
-              if(numberOfParts < 6){
-                body.push(WORK);}
+                 body.push(WORK);
             }
             for (let i = 0; i < numberOfParts; i++) {
                 body.push(MOVE);
             }
             //計算完之後多給他一個MOVE
             body.push(MOVE);
-            body.push(CARRY);
             body.push(MOVE);
+            body.push(CARRY);
             body.push(CARRY);
 if (spawn.spawnCreep(body,newName,{memory:{role: 'harvester2', harvest_target_id :source}},{dryRun: true})===0)
 {spawn.spawnCreep(body,newName,{

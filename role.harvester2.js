@@ -11,8 +11,8 @@ var roleHarvester2 = {
           creep.memory.harvest_target_id = creep.room.memory.sources[0].id};
         if (source1_count.length  < 1){
             creep.memory.harvest_target_id = creep.room.memory.sources[1].id};
-        console.log("0count:"+ source0_count.length + "1count:"+  source1_count.length )
-        console.log(Game.getObjectById(source0.id).memory)
+        //console.log("0count:"+ source0_count.length + "1count:"+  source1_count.length )
+        //console.log(Game.getObjectById(source0.id).memory)
 
        if(!creep.memory.harvesting && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.harvesting = true;
