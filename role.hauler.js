@@ -1,6 +1,7 @@
 var roleHauler = {
     run: function(creep) {
           //決策樹
+
            if(!creep.memory.pickingup && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.pickingup = true;
             creep.say('picking');
@@ -12,9 +13,16 @@ var roleHauler = {
 	    if(creep.memory.pickingup == true) {
 	        //撿起來
             var droppedRessource = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-            if(creep.pickup(droppedRessource) == ERR_NOT_IN_RANGE) {
+            var pickupcontainer = Game.getObjectById(Memory.outputid[0]);
+            if(pickupcontainer.store[RESOURCE_ENERGY] > 200){
+              console.log("gonan pick u up");
+              if(creep.withdraw(pickupcontainer,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(pickupcontainer, {visualizePathStyle: {stroke: '#ffaa00'}})
+              }
+            }else{
+              if(creep.pickup(droppedRessource) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(droppedRessource, {visualizePathStyle: {stroke: '#ffaa00'}});
-            }
+            }}
             if (creep.room.memory.state == "filling"){
               creep.say("gonna full u up")
               if(creep.withdraw(creep.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -57,7 +65,7 @@ var roleHauler = {
                     creep.moveTo(target,{reusePath: 2},{visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
-            if(typeof (targets2[0]) == "undefined"){
+            if(typeof (targets2[0]) == "undefined"||creep.room.memory.total_container_energy>5900){
               creep.say("中等目標也滿了")
               if(creep.transfer(creep.room.storage,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                   creep.moveTo(creep.room.storage, {visualizePathStyle: {stroke: '#ffffff'}});

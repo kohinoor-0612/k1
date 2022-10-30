@@ -11,8 +11,8 @@ var spawnhighlv = require('spawn_lib.highlv');
 var test123 = require('servay');
 test123.do();
 ///主伺服器的挖礦已經夠多了
-const  maxium_harvester = 4;
-const  maxium_builder = 2;
+const  maxium_harvester = 2;
+const  maxium_builder = 1;
 const  maxium_upgrader = 1;
 const  maxium_opupgrader = 5;
 const  maxium_hauler = 2
