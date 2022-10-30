@@ -83,6 +83,36 @@ if (spawn.spawnCreep(body,newName,{memory:{role: 'builder'}},{dryRun: true})===0
       else{console.log("can't spawn D-max-hauler")}
     }
   },
+  spawnAttacker_d: function (spawn,cost,livingroom,job_count_now,maxium_job) {
+    if(job_count_now < maxium_job) {
+            let newName = 'd_attacker' + livingroom + Game.time;
+            //生成身體結構 零件數量都相等
+            var numberOfParts = Math.floor(cost/140);
+            var body = [];
+            //set maxium part
+            if(numberOfParts > 10){ numberOfParts = 10}
+            for (let i = 0; i < numberOfParts; i++) {
+                body.push(TOUGH);
+                //10
+            }
+            for (let i = 0; i < numberOfParts; i++) {
+                body.push(MOVE);
+                //50
+            }
+            for (let i = 0; i < numberOfParts; i++) {
+                body.push(ATTACK);
+                //80
+            }        
+if (spawn.spawnCreep(body,newName,{memory:{role: 'attacker'}},{dryRun: true})===0)
+{spawn.spawnCreep(body,newName,{
+  memory:
+        {role: 'attacker'}
+      });}
+      else{console.log("can't spawn D-max-attacker")}
+      console.log(spawn.spawnCreep(body,newName,{memory:{role: 'attacker'}},{dryRun: true}))
+
+    }
+  },
 }
 
 module.exports = spawnhighlv;

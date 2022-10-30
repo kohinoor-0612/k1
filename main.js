@@ -4,6 +4,7 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleHauler = require('role.hauler');
 var roleJunction = require('role.junction');
+var roleAttacker = require('role.attacker');
 var roombuildingtower = require('room_building.tower');
 var roomservay = require('room_servay');
 var spawnlowlv = require('spawn_lib.lowlv');
@@ -11,11 +12,13 @@ var spawnhighlv = require('spawn_lib.highlv');
 var test123 = require('servay');
 test123.do();
 ///主伺服器的挖礦已經夠多了
-Memory.setting = [{maxium_harvester: 2},{maxium_builder:1},{maxium_upgrader:1},{maxium_hauler:2}]
+Memory.setting = [{maxium_harvester: 2},{maxium_builder:1},{maxium_upgrader:1},{maxium_hauler:2},{maxium_junction:1},{maxium_attacker:4},]
 const  maxium_harvester = Memory.setting[0].maxium_harvester;
 const  maxium_builder = Memory.setting[1].maxium_builder;
 const  maxium_upgrader = Memory.setting[2].maxium_upgrader;
 const  maxium_hauler = Memory.setting[3].maxium_hauler;
+const  maxium_junction = Memory.setting[4].maxium_junction;
+const  maxium_attacker = Memory.setting[5].maxium_attacker;
 
 //____________________________________只執行一次
 //賦予礦點記憶屬性
@@ -56,6 +59,9 @@ module.exports.loop = function () {
   var harvester2_count = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester2');
   var builder_count = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
   var upgrader_count = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
+  var junction_count = _.filter(Game.creeps, (creep) => creep.memory.role == 'junction');
+  var attacker_count = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
+
 
 
 //數量追蹤
@@ -141,6 +147,8 @@ for (let spawns in Game.spawns) {
     let spawn = Game.spawns[spawns];
     let room = spawn.room;
     //新版生成LOOP stage 1
+    if(room.find(FIND_HOSTILE_CREEPS).length >0){
+    spawnhighlv.spawnAttacker_d(spawn,room.memory.total_energy,room,attacker_count,4)};    
     if(room.memory.total_energy < 400 || (harvester2_count.length + harvester_count.length < 2)){
       if(harvester2_count.length + harvester_count.length < 2){
         spawnlowlv.spawnHarvester1(spawn,room,harvester_count.length,maxium_harvester)}
@@ -204,6 +212,9 @@ for (let rooms in Game.rooms) {
         }
         if(creep.memory.role == 'hauler') {
             roleHauler.run(creep);
+        }
+        if(creep.memory.role == 'attacker') {
+            roleAttacker.run(creep);
         }
     }
 }

@@ -15,7 +15,7 @@ var roleHauler = {
             var droppedRessource = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
             var pickupcontainer = Game.getObjectById(Memory.outputid[0]);
             if(pickupcontainer.store[RESOURCE_ENERGY] > 200){
-              console.log("gonan pick u up");
+              creep.say("gonan pick u up");
               if(creep.withdraw(pickupcontainer,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(pickupcontainer, {visualizePathStyle: {stroke: '#ffaa00'}})
               }
