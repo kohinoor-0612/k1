@@ -39,8 +39,6 @@ Object.defineProperty(Source.prototype, 'memory', {
         Memory.sources[this.id] = value;
     }
 });
-
-
 //礦點偵測
 Game.spawns['Spawn1'].room.memory.sources = [];
 Game.spawns['Spawn1'].room.memory.sources.push(Game.spawns['Spawn1'].room.find(FIND_SOURCES)[0]);
@@ -157,13 +155,15 @@ for (let spawns in Game.spawns) {
   //新版生成LOOP 生成高階單位 stage 3
   if (room.memory.total_energy>=room.memory.total_energy_cap){
     spawnhighlv.spawnHarvester2_d(spawn,room.memory.total_energy,room,harvester2_count.length,maxium_harvester);
-    spawnhighlv.spawnBuilder_d(spawn,room.memory.total_energy,room,builder_count.length,maxium_builder);
+    if(harvester2_count.length > 1){
+    spawnhighlv.spawnBuilder_d(spawn,room.memory.total_energy,room,builder_count.length,maxium_builder)}
     //過渡期
     if(room.memory.total_energy > 800)
     {spawnhighlv.spawnHauler_d(spawn,room.memory.total_energy,room,hauler_count.length,maxium_hauler);}
   }
-  //生成固定數量
-  spawnhighlv.spawnHauler_d(800,room,hauler_count.length,maxium_hauler);
+  //生成固定數5量
+  if(harvester2_count.length > 0){
+  spawnhighlv.spawnHauler_d(800,room,hauler_count.length,maxium_hauler)}
 };
 
 //城政中心的產出標記
