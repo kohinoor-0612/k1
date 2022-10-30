@@ -11,14 +11,11 @@ var spawnhighlv = require('spawn_lib.highlv');
 var test123 = require('servay');
 test123.do();
 ///主伺服器的挖礦已經夠多了
-const  maxium_harvester = 3;
-const  maxium_builder = 1;
+const  maxium_harvester = 4;
+const  maxium_builder = 2;
 const  maxium_upgrader = 1;
 const  maxium_opupgrader = 5;
 const  maxium_hauler = 2
-
-//git yest
-// this si to test the branch 
 
 //____________________________________只執行一次
 //賦予礦點記憶屬性
@@ -109,7 +106,6 @@ for(var name in Game.spawns) {
   var local_spawn = Game.spawns[name];
 if(total_energy >= 350) {
 
-
   if(total_energy > 500) {
     if(harvester2_count.length+harvester_count.length < maxium_harvester && hauler_count.length > 0 ) {
       let newName = 'harvester-3LV' + Game.time;
@@ -143,36 +139,32 @@ if(total_energy >= 350) {
 }
 
 
-//新版生成LOOP 生成高階單位
 for (let spawns in Game.spawns) {
     let spawn = Game.spawns[spawns];
     let room = spawn.room;
-    //生成最大值
-    if (room.memory.total_energy==room.memory.total_energy_cap){
-      spawnhighlv.spawnHarvester2_d(spawn,room.memory.total_energy,room,harvester_count.length+harvester2_count.length,maxium_harvester+1);
-      spawnhighlv.spawnBuilder_d(spawn,room.memory.total_energy,room,builder_count.length,maxium_builder+1);
-      //過渡期
-      if(room.memory.total_energy > 800)
-      {spawnhighlv.spawnHauler_d(spawn,room.memory.total_energy,room,hauler_count.length,maxium_hauler+1);}
-    }
-    //生成固定數量
-    spawnhighlv.spawnHauler_d(800,room,hauler_count.length,maxium_hauler+2);
-  }
-
-//新版生成LOOP
-for (let spawns in Game.spawns) {
-    let spawn = Game.spawns[spawns];
-    let room = spawn.room;
-    if(harvester2_count.length - harvester_count.length < 2){
+    //新版生成LOOP stage 1
+    if(room.memory.total_energy < 400 || (harvester2_count.length + harvester_count.length < 2)){
+      if(harvester2_count.length + harvester_count.length < 2){
         spawnlowlv.spawnHarvester1(spawn,room,harvester_count.length,maxium_harvester)}
         else{
-        spawnlowlv.spawnHarvester1_2(spawn,room,harvester_count.length+harvester2_count.length,maxium_harvester);
+        spawnlowlv.spawnHarvester1_2(spawn,room,harvester2_count.length,maxium_harvester);
         spawnlowlv.spawnUpgrader(spawn,room,upgrader_count.length,maxium_upgrader);
         spawnlowlv.spawnBuilder(spawn,room,builder_count.length,maxium_builder);
-      };
-        if((harvester2_count.length > 0)&&(room.memory.total_energy < 1000)){
+      }
+      if(harvester2_count.length > 0){
           spawnlowlv.spawnHauler(spawn,room,hauler_count.length,maxium_hauler);}
+  };
+  //新版生成LOOP 生成高階單位 stage 3
+  if (room.memory.total_energy>=room.memory.total_energy_cap){
+    spawnhighlv.spawnHarvester2_d(spawn,room.memory.total_energy,room,harvester2_count.length,maxium_harvester);
+    spawnhighlv.spawnBuilder_d(spawn,room.memory.total_energy,room,builder_count.length,maxium_builder);
+    //過渡期
+    if(room.memory.total_energy > 800)
+    {spawnhighlv.spawnHauler_d(spawn,room.memory.total_energy,room,hauler_count.length,maxium_hauler);}
   }
+  //生成固定數量
+  spawnhighlv.spawnHauler_d(800,room,hauler_count.length,maxium_hauler);
+};
 
 //城政中心的產出標記
     if(Game.spawns['Spawn1'].spawning) {

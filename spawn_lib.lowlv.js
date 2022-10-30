@@ -3,7 +3,7 @@ var spawnlowlv = {
 //spawnlowlv.spawnHarvester1(spawn, room,harvester_count.length,maxium_harvester);
 spawnHarvester1: function (spawn,livingroom,job_count_now,maxium_job) {
   if(job_count_now < maxium_job) {
-          let newName = 'harvester' + livingroom + Game.time;
+          let newName = 'bascic_harvester' + livingroom + Game.time;
           let source = _.sample(spawn.room.find(FIND_SOURCES)).id;
           spawn.spawnCreep([WORK,CARRY,MOVE], newName,{
             memory:
@@ -13,7 +13,7 @@ spawnHarvester1: function (spawn,livingroom,job_count_now,maxium_job) {
 },
 spawnHarvester1_2: function (spawn,livingroom,job_count_now,maxium_job) {
   if(job_count_now < maxium_job) {
-          let newName = 'harvester2' + livingroom + Game.time;
+          let newName = 'bascic_harvester2' + livingroom + Game.time;
           let source = _.sample(spawn.room.find(FIND_SOURCES)).id;
           spawn.spawnCreep([WORK,CARRY,MOVE], newName,{
             memory:

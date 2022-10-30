@@ -11,7 +11,7 @@ var roleBuilder = {
       creep.memory.task = "withdrawing";
  }
 
-	    if((creep.memory.task =="building" || creep.memory.task =="upgrading" )&& creep.store[RESOURCE_ENERGY] == 0) {
+	    if((creep.memory.task =="building" || creep.memory.task =="upgrading" )&& creep.store[RESOURCE_ENERGY] == 0 && total_energy > 300) {
             creep.memory.task = "withdrawing";
             creep.say('🔄 withdrawing');
 	    }
@@ -59,7 +59,7 @@ var roleBuilder = {
                             structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0;
                 }
         });
-        if(creep.room.memory.total_container_energy > 200){
+        if(creep.room.memory.total_container_energy > 300){
           var pickup_energy_targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_CONTAINER) &&

@@ -1,6 +1,6 @@
 var test123 = {
   do : function(){
-    console.log("tset")}
+    console.log("code has been relode")}
 
  }
 
