@@ -11,11 +11,11 @@ var spawnhighlv = require('spawn_lib.highlv');
 var test123 = require('servay');
 test123.do();
 ///主伺服器的挖礦已經夠多了
-const  maxium_harvester = 2;
-const  maxium_builder = 1;
-const  maxium_upgrader = 1;
-const  maxium_opupgrader = 5;
-const  maxium_hauler = 2
+Memory.setting = [{maxium_harvester: 2},{maxium_builder:1},{maxium_upgrader:1},{maxium_hauler:2}]
+const  maxium_harvester = Memory.setting[0].maxium_harvester;
+const  maxium_builder = Memory.setting[1].maxium_builder;
+const  maxium_upgrader = Memory.setting[2].maxium_upgrader;
+const  maxium_hauler = Memory.setting[3].maxium_hauler;
 
 //____________________________________只執行一次
 //賦予礦點記憶屬性
